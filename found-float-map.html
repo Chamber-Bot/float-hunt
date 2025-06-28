@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Found Float Map</title>
+  <meta charset="utf-8" />
+  <style>
+    gmp-map {
+      width: 100%;
+      height: 600px;
+    }
+  </style>
+</head>
+
+<body>
+  <gmp-map center="47.5715,-122.3860" zoom="13" map-id="YOUR_MAP_ID">
+    <gmp-advanced-marker 
+      position="47.5765,-122.3920" 
+      title="Float 1 - Alki Beach" 
+    ></gmp-advanced-marker>
+    <gmp-advanced-marker position="47.5650,-122.3780" title="Float 2 - Lincoln Park"></gmp-advanced-marker>
+    <gmp-advanced-marker position="47.5800,-122.3850" title="Float 3 - Seacrest Park"></gmp-advanced-marker>
+
+  </gmp-map>
+
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxJEVOmsTK798O6sgmjx23aqqe3iXJTu8&loading=async&libraries=maps,marker&v=beta"
+    defer async></script>
+</body>
+
+</html>
