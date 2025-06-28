@@ -1,0 +1,80 @@
+<html>
+
+<head>
+  <title>Advanced Marker Simple HTML</title>
+
+</head>
+
+<body>
+  <div id="map" style="height: 800px; width: 600px;"></div>
+
+  <!-- prettier-ignore -->
+  <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })
+            ({ key: "AIzaSyCxJEVOmsTK798O6sgmjx23aqqe3iXJTu8", v: "beta" });
+
+        // Initialize and add the map
+        let map;
+
+        async function initMap() {
+            // The location of West Seattle
+            const position = { lat: 47.5615, lng: -122.3860 };
+
+            // A marker with a with a URL pointing to a PNG.
+            const floatImg = document.createElement("img");
+            floatImg.src = "https://growthzonecmsprodeastus.azureedge.net/sites/1725/2025/06/2025-float-hunt-log-circle.png";    floatImg.style.width = "170px";
+            floatImg.style.height = "170px";
+
+
+            // Request needed libraries.
+            //@ts-ignore
+            const { Map } = await google.maps.importLibrary("maps");
+            const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
+            const {PinElement} = await google.maps.importLibrary("marker");
+      
+            const pinElement = new PinElement({
+              glyph: floatImg
+              });
+            // The map, centered in West Seattle
+            map = new Map(document.getElementById("map"), {
+                zoom: 12,
+                center: position,
+                mapId: "DEMO_MAP_ID",
+            });
+
+            // The marker, West Seattle center
+            const marker = new AdvancedMarkerElement({
+                map: map,
+                position: position,
+                title: 'West Seattle'
+            });
+            
+            // Add found markers from JSON
+            fetch('https://storage.googleapis.com/wscc-float-hunt/found_floats.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(loc => {
+                          const pin = new google.maps.marker.PinElement({
+                            glyph: `13${loc.id}`,
+                            background: "#A02B93",   // magenta                            
+                            borderColor: "#D86ECC",   // pink
+                            glyphColor: "#FFFFFF",   // White text for contrast
+                            scale: 1.5
+                          });
+                            
+                          new AdvancedMarkerElement({
+                            map: map,
+                            position: { lat: loc.lat, lng: loc.lng },
+                            title: loc.title,
+                            content: pin.element
+                        });
+                    });
+                })
+                .catch(error => console.error("Error loading JSON:", error));
+        }
+
+        initMap();
+  </script>
+</body>
+
+</html>
