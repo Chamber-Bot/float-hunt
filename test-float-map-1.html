@@ -16,18 +16,18 @@
         let map;
 
         async function initMap() {
-            // The location of Uluru
-            const center = { lat: 47.5615, lng: -122.3860 }; // West Seattle
+            // The location of West Seattle
+            const position = { lat: 47.5615, lng: -122.3860 };
 
             // Request needed libraries.
             //@ts-ignore
             const { Map } = await google.maps.importLibrary("maps");
             const { AdvancedMarkerElement } = await google.maps.importLibrary("marker");
 
-            // The map, centered in West Seattl
+            // The map, centered in West Seattle
             map = new Map(document.getElementById("map"), {
                 zoom: 12,
-                center: center,
+                center: position,
                 mapId: "DEMO_MAP_ID",
             });
 
