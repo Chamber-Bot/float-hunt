@@ -55,7 +55,7 @@
                 .then(data => {
                     data.forEach(loc => {
                           const pin = new google.maps.marker.PinElement({
-                            glyph: `13${loc.id}`,
+                            glyph: `${loc.id}`,
                             background: "#A02B93",   // magenta                            
                             borderColor: "#D86ECC",   // pink
                             glyphColor: "#FFFFFF",   // White text for contrast
