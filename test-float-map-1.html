@@ -37,6 +37,20 @@
                 position: position,
                 title: 'West Seattle'
             });
+            
+            // Add found markers from JSON
+            fetch('https://storage.googleapis.com/wscc-float-hunt/found_floats.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.locations.forEach(loc => {
+                        new AdvancedMarkerElement({
+                            map: map,
+                            position: { lat: loc.lat, lng: loc.lng },
+                            title: loc.title
+                        });
+                    });
+                })
+                .catch(error => console.error("Error loading JSON:", error));
 
         }
 
